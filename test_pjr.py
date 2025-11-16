@@ -9,6 +9,7 @@ def show_state(matriz):
         print()
     print("\n")
 
+# Modificar para funcionar com as matrizes
 def bfs(grafo, init, fim):
     visitados = []
     gerados = []
@@ -31,6 +32,7 @@ def bfs(grafo, init, fim):
                     caminho.append(vizi)
                     gerados.append(vizi)
 
+# Modificar para funcionar com as matrizes
 def dfs(grafo, init, fim):
     visitados = []
     gerados = []
