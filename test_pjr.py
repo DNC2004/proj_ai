@@ -10,6 +10,7 @@ def show_state(matriz):
     print("\n")
 
 # Modificar para funcionar com as matrizes
+# AAFAFASFA
 def bfs(grafo, init, fim):
     visitados = []
     gerados = []
