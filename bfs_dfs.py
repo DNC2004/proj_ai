@@ -1,7 +1,7 @@
+# Funções para os algoritmos BFS e DFS
+
 #matriz_jogo_quinze = [[2,5,6,8],[1,4,9,10],[12,14,15,3], [13,7,11,0]]
 matriz_jogo_quinze = [[1,2,3,4],[5,6,7,8],[9,10,11,12], [13,14,0,15]]
-
-
 matriz_goal = [[1,2,3,4],[5,6,7,8],[9,10,11,12], [13,14,15,0]]
 
 
@@ -27,7 +27,10 @@ def get_neighbors(state):
 
 
 # Modificar para funcionar com as matrizes
-def bfs(init, fim):
+def bfs(matriz_init, matriz_fim):
+    init = matriz_tuplo(matriz_init)
+    fim = matriz_tuplo(matriz_fim)
+    
     visitados = set()
     gerados = []
     expandidos = []
@@ -59,7 +62,11 @@ def bfs(init, fim):
 
 
 # Modificar para funcionar com as matrizes
-def dfs(init, fim):
+def dfs(matriz_init, matriz_fim):
+    
+    init = matriz_tuplo(matriz_init)
+    fim = matriz_tuplo(matriz_fim)
+    
     visitados = set()
     gerados = []
     expandidos = []
@@ -90,9 +97,6 @@ def dfs(init, fim):
     return False, gerados, expandidos
 
 if __name__ == "__main__":
-    jogo_init = matriz_tuplo(matriz_jogo_quinze)
-    jogo_goal = matriz_tuplo(matriz_goal)
-    
-    # bfs(jogo_init, jogo_goal)
-    # dfs(jogo_init, jogo_goal)
+    bfs(matriz_jogo_quinze, matriz_goal)
+    #dfs(matriz_jogo_quinze, matriz_goal)
     
