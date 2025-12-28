@@ -1,4 +1,4 @@
-# Projeto de IA
+# 🤖 Projeto de IA
 
 Este repositório contém a implementação de diversos algoritmos fundamentais de Inteligência Artificial, desde estratégias de busca clássicas até modelos de decisão e *reinforcement learning*.
 
