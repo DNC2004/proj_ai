@@ -39,9 +39,9 @@ def dist_manhatan(tabuleiro, goal): # Distância da posição atual do quadrado 
     return dist
         
 
-
 # Greedy Best First Search (Não contabiliza o custo só a distância)
-def gbfs(matriz_tabuleiro, matriz_goal):
+# Limite = 0 --> Não queremos limite
+def gbfs(matriz_tabuleiro, matriz_goal, limite):
     tabuleiro = matriz_tuplo(matriz_tabuleiro)
     goal = matriz_tuplo(matriz_goal)
     
@@ -58,6 +58,10 @@ def gbfs(matriz_tabuleiro, matriz_goal):
         
         if contador % 10000 == 0:
             print(f"Tentativa: {contador}")
+            
+        if contador == limite:
+            print(f"O || GBFS || não resolveu o tabuleiro em {contador} tentativas.")
+            break
         
         if node in visitados:
             continue
@@ -75,7 +79,7 @@ def gbfs(matriz_tabuleiro, matriz_goal):
     return False
 
 # Uniforme Cost Search (Custo sem heurística)
-def unc(matriz_tabuleiro, matriz_goal):
+def unc(matriz_tabuleiro, matriz_goal,limite):
     fila = []
     tabuleiro = matriz_tuplo(matriz_tabuleiro)
     goal = matriz_tuplo(matriz_goal)
@@ -92,6 +96,10 @@ def unc(matriz_tabuleiro, matriz_goal):
         
         if contador % 10000 == 0:
             print(f"Tentativa: {contador}")
+            
+        if contador == limite:
+            print(f"O || UCS || não resolveu o tabuleiro em {contador} tentativas.")
+            break
         
         if node in visitados and visitados[node] <= custo:
             continue
@@ -108,7 +116,7 @@ def unc(matriz_tabuleiro, matriz_goal):
     return False
 
 # A* (Custo com heurística)
-def astar(matriz_tabuleiro, matriz_goal):
+def astar(matriz_tabuleiro, matriz_goal,limite):
     fila = []
     tabuleiro = matriz_tuplo(matriz_tabuleiro)
     goal = matriz_tuplo(matriz_goal)
@@ -127,6 +135,10 @@ def astar(matriz_tabuleiro, matriz_goal):
         
         if contador % 10000 == 0:
             print(f"Tentativa: {contador}")
+            
+        if contador == limite:
+            print(f"O || A* || não resolveu o tabuleiro em {contador} tentativas.")
+            break
         
         if node in visitados and visitados[node] <= custo_atual:
             continue
@@ -148,6 +160,6 @@ def astar(matriz_tabuleiro, matriz_goal):
 if __name__ == "__main__":
     # dist_manhatan(matriz_jogo_quinze, matriz_goal)
 
-    gbfs(matriz_jogo_quinze, matriz_goal)
-    unc(matriz_jogo_quinze, matriz_goal)
-    astar(matriz_jogo_quinze, matriz_goal)
+    gbfs(matriz_jogo_quinze, matriz_goal,0)
+    unc(matriz_jogo_quinze, matriz_goal,0)
+    astar(matriz_jogo_quinze, matriz_goal,0)
