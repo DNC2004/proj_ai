@@ -30,6 +30,38 @@ def dist_manhatan(tabuleiro, goal): # Distância da posição atual do quadrado 
     return dist
         
 
+
+# Greedy Best First Search (Não contabiliza o custo só a distância)
+def gbfs(matriz_tabuleiro, matriz_goal):
+    tabuleiro = matriz_tuplo(matriz_tabuleiro)
+    goal = matriz_tuplo(matriz_goal)
+    
+    fila = []
+    heapq.heappush(fila, (dist_manhatan(tabuleiro, goal), tabuleiro))
+    
+    visitados = set()
+    contador = 0
+    
+    while fila:
+        _, node = heapq.heappop(fila)
+        contador += 1
+        
+        if node in visitados:
+            continue
+        
+        visitados.add(node)
+        
+        if node == goal:
+            print(f"GBFS resolveu o tabuleiro em {contador} tentativas.")
+            return True
+        
+        for vizi in get_neighbors(node):
+            if vizi not in visitados:
+                heapq.heappush(fila, (dist_manhatan(vizi, goal), vizi))
+    
+    return False
+
+# Uniforme Cost Search (Custo sem heurística)
 def unc(matriz_tabuleiro, matriz_goal):
     fila = []
     tabuleiro = matriz_tuplo(matriz_tabuleiro)
@@ -51,7 +83,7 @@ def unc(matriz_tabuleiro, matriz_goal):
         visitados[node] = custo
         
         if node == goal:
-            print(f"O UFS resolveu o tabuleiro em {contador} tentativas com um custo total de {custo}.")
+            print(f"O UCS resolveu o tabuleiro em {contador} tentativas com um custo total de {custo}.")
             return True
         
         for vizi in get_neighbors(node):
@@ -59,7 +91,7 @@ def unc(matriz_tabuleiro, matriz_goal):
     
     return False
 
-
+# A* (Custo com heurística)
 def astar(matriz_tabuleiro, matriz_goal):
     fila = []
     tabuleiro = matriz_tuplo(matriz_tabuleiro)
@@ -94,6 +126,8 @@ def astar(matriz_tabuleiro, matriz_goal):
 if __name__ == "__main__":
     # dist_manhatan(matriz_jogo_quinze, matriz_goal)
 
+    gbfs(matriz_jogo_quinze, matriz_goal)
+    
     unc(matriz_jogo_quinze, matriz_goal)
     
     astar(matriz_jogo_quinze, matriz_goal)
