@@ -31,7 +31,7 @@ def bfs(matriz_init, matriz_fim):
             expandidos.append(node)
             
             if node == fim:
-                print(f"O tabuleiro foi resolvido pelo BFS em {contador} tentativas")
+                print(f"O || BFS || resolveu o tabuleiro em {contador} tentativas")
                 return True, gerados, expandidos
             
             for vizi in get_neighbors(node):
@@ -67,7 +67,7 @@ def dfs(matriz_init, matriz_fim):
             expandidos.append(node)
             
             if node == fim:
-                print(f"O tabuleiro foi resolvido pelo BFS em {contador} tentativas")                
+                print(f"O || DFS || resolveu o tabuleiro em {contador} tentativas")                
                 return True, gerados, expandidos
             
             for vizi in reversed(get_neighbors(node)):
