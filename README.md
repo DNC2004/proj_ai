@@ -15,7 +15,7 @@ Este repositório contém a implementação de diversos algoritmos fundamentais 
 | **Informada** | UCS (Uniform Cost Search) | ✅ |
 | **Informada** | A* (A-Star Search) | ✅ |
 
-### 🧠 Reinforcement *Learning* e Modelos Probabilísticos
+### 🧠 *Reinforcement Learning* e Modelos Probabilísticos
 | Categoria | Algoritmo / Modelo | Status |
 | :--- | :--- | :---: |
 | **Learning** | Reinforcement Learning | ⏳ *Pendente* |
