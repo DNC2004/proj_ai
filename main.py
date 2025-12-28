@@ -1,6 +1,6 @@
 ## Onde se vai escolher que algoritmo utilizar
 from n_supervisonadas import dfs, bfs
-from supervisionadas import unc, astar
+from supervisionadas import unc, astar,gbfs
 
 # Impossível
 # matriz_jogo_quinze = [[2,5,6,8],[1,4,9,10],[12,14,15,3], [13,7,11,0]]
