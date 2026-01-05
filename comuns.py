@@ -9,7 +9,6 @@ GOAL_POSITIONS = {
     for i, value in enumerate(GOAL)
 }
 
-
 def matriz_tuplo(matriz):
     return tuple(num for row in matriz for num in row)
 
