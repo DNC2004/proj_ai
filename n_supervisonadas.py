@@ -1,16 +1,13 @@
-from comuns import matriz_tuplo, get_neighbors
+from comuns import matriz_tuplo, get_neighbors, GOAL
 
 # Funções para os algoritmos BFS e DFS
 #matriz_jogo_quinze = [[2,5,6,8],[1,4,9,10],[12,14,15,3], [13,7,11,0]]
 matriz_jogo_quinze = [[1,2,3,4],[5,6,7,8],[9,10,11,12], [13,14,0,15]]
-matriz_goal = [[1,2,3,4],[5,6,7,8],[9,10,11,12], [13,14,15,0]]
-
-
 
 # Modificar para funcionar com as matrizes
-def bfs(matriz_init, matriz_fim):
+def bfs(matriz_init):
     init = matriz_tuplo(matriz_init)
-    fim = matriz_tuplo(matriz_fim)
+    fim = GOAL
     
     visitados = set()
     gerados = []
@@ -46,7 +43,7 @@ def bfs(matriz_init, matriz_fim):
 def dfs(matriz_init, matriz_fim):
     
     init = matriz_tuplo(matriz_init)
-    fim = matriz_tuplo(matriz_fim)
+    fim = GOAL
     
     visitados = set()
     gerados = []
