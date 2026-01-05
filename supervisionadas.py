@@ -103,7 +103,7 @@ def astar(matriz_tabuleiro,limite):
     
     custos_menores = {tabuleiro: 0}
     
-    while fila:
+    while fila :
         _,custo_atual, node = heapq.heappop(fila)
         contador += 1
         # print(f"DEBUG -- Custo atual: {custo_atual} | Nó atual: {node}")
@@ -133,8 +133,8 @@ def astar(matriz_tabuleiro,limite):
 
 
 if __name__ == "__main__":
-    # dist_manhatan(matriz_jogo_quinze, matriz_goal)
+    # dist_manhatan(matriz_jogo_quinze,
 
-    gbfs(matriz_jogo_quinze, matriz_goal,0)
-    unc(matriz_jogo_quinze, matriz_goal,0)
-    astar(matriz_jogo_quinze, matriz_goal,0)
+    #gbfs(matriz_jogo_quinze,0)
+    #unc(matriz_jogo_quinze,0)
+    astar(matriz_jogo_quinze,-1)
