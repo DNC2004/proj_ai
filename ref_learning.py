@@ -127,6 +127,10 @@ def train_q_learning(env, episodes=5000, alpha=0.1, gamma=0.99, epsilon=0.2, max
 
 
 def test_policy(env, Q, max_steps):
+    
+    if max_steps == -1:
+        max_steps = float("inf")
+    
     state = env.reset(env.state)
     contador = 0
     print("Estado Inicial:")
@@ -158,6 +162,10 @@ def test_policy(env, Q, max_steps):
     
 
 def r_learning(initial_board,max_test_steps, episodes=2000):
+    
+    if max_test_steps == -1:
+        max_steps = float("inf")
+    
     initial_state = matriz_tuplo(initial_board)
 
     # Init Env
