@@ -5,7 +5,7 @@ from comuns import matriz_tuplo, get_neighbors, GOAL
 matriz_jogo_quinze = [[1,2,3,4],[5,6,7,8],[9,10,11,12], [13,14,0,15]]
 
 # Modificar para funcionar com as matrizes
-def bfs(matriz_init):
+def bfs(matriz_init, limite):
     init = matriz_tuplo(matriz_init)
     fim = GOAL
     
@@ -35,12 +35,16 @@ def bfs(matriz_init):
                 if vizi not in visitados and vizi not in fila:
                     fila.append(vizi)
                     gerados.append(vizi)
-    
+                    
+        if contador == limite:
+            print(f"O || BFS || não resolveu o tabuleiro em {contador} tentativas")
+            return False
+                
     return False, gerados, expandidos
 
 
 # Modificar para funcionar com as matrizes
-def dfs(matriz_init, matriz_fim):
+def dfs(matriz_init,limite):
     
     init = matriz_tuplo(matriz_init)
     fim = GOAL
@@ -71,10 +75,15 @@ def dfs(matriz_init, matriz_fim):
                 if vizi not in visitados and vizi not in pilha:
                     pilha.append(vizi)
                     gerados.append(vizi)
+        
+        if contador == limite:
+            print(f"O || BFS || não resolveu o tabuleiro em {contador} tentativas")
+            return False
+        
 
     return False, gerados, expandidos
 
 if __name__ == "__main__":
-    bfs(matriz_jogo_quinze, matriz_goal)
-    #dfs(matriz_jogo_quinze, matriz_goal)
+    bfs(matriz_jogo_quinze,-1)
+    #dfs(matriz_jogo_quinze)
     
