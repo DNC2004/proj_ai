@@ -1,4 +1,15 @@
 # Funções comuns a vários algoritmos
+GOAL = (1,2,3,4,
+        5,6,7,8,
+        9,10,11,12,
+        13,14,15,0)
+
+GOAL_POSITIONS = {
+    value: divmod(i, 4)
+    for i, value in enumerate(GOAL)
+}
+
+
 def matriz_tuplo(matriz):
     return tuple(num for row in matriz for num in row)
 
@@ -18,3 +29,23 @@ def get_neighbors(state):
             neighbors.append(tuple(new_state))
 
     return neighbors
+
+def dist_manhatan(tabuleiro, goal): # Distância da posição atual do quadrado para a posição onde este é suposto estar
+    dist = 0
+    
+    for i, quadrado in enumerate(tabuleiro):
+        if quadrado == 0:
+            continue
+        
+        fila, coluna = divmod(i,4) # Posição do quadrado atual
+        
+        goal_fila, goal_coluna = GOAL_POSITIONS[quadrado] # Posição suposta do quadrado
+
+        dist += abs(fila - goal_fila) + abs(coluna - goal_coluna) # Calcular a distância em si
+
+        # DEBUG        
+        # print(f"DEBUG -- O quadrado {quadrado} está na posição: x = {fila} | y = {coluna}") 
+        # print(f"DEBUG -- O objetivo está na posição: x = {goal_fila} | y = {goal_coluna}") 
+        # print(f"DEBUG -- Distância entre o quadrado {goal_fila} e {goal_coluna}: {dist}") 
+    
+    return dist
