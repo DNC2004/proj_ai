@@ -18,7 +18,7 @@ Este repositório contém a implementação de diversos algoritmos fundamentais 
 ### 🧠 *Reinforcement Learning* e Modelos Probabilísticos
 | Categoria | Algoritmo / Modelo | Status |
 | :--- | :--- | :---: |
-| **Learning** | Reinforcement Learning | ⏳ *Pendente* |
+| **Learning** | Reinforcement Learning | ✅ |
 | **Probabilidade** | Markov Chains | ⏳ *Pendente* |
 | **Probabilidade** | Redes Bayesianas | ⏳ *Pendente* |
 | **Decisão** | Markov Decision Process (MDP) | ⏳ *Pendente* |
