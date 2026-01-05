@@ -1,8 +1,8 @@
 import random
 from comuns import matriz_tuplo, dist_manhatan, GOAL
 
-matriz_jogo_quinze = [[1,2,3,4],[5,6,0,8],[9,10,7,11],[13,14,15,12]]
-#matriz_jogo_quinze = [[2,5,6,8],[1,4,9,10],[12,14,15,3], [13,7,11,0]]
+#matriz_jogo_quinze = [[1,2,3,4],[5,6,0,8],[9,10,7,11],[13,14,15,12]]
+matriz_jogo_quinze = [[2,5,6,8],[1,4,9,10],[12,14,15,3], [13,7,11,0]]
 #matriz_jogo_quinze = [[5, 0, 2, 11],[14, 1, 3, 6],[9, 8, 13, 7],[10, 15, 4, 12]]
 
 #matriz_jogo_quinze = [[1,2,3,4],[5,6,7,8],[9,10,11,12], [13,14,0,15]]
@@ -153,6 +153,23 @@ def test_policy(env, Q, max_steps=10000):
             break
     
     print(f"O puzzle não foi resolvido em {contador} tentativas")
+    
+
+def r_learning(initial_board, episodes=2000,max_test_steps=10000):
+    initial_state = matriz_tuplo(initial_board)
+
+    # Init Env
+    env = PuzzleEnv(initial_state)
+
+    # Treino
+    Q = train_q_learning(env, episodes=episodes)
+
+    env.reset(initial_state)
+
+    # Testar a policy
+    test_policy(env, Q, max_steps=max_test_steps)
+
+    return Q
         
 if __name__ == "__main__":
     initial_state = matriz_tuplo(matriz_jogo_quinze)
