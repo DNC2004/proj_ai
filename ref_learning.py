@@ -1,8 +1,8 @@
 import random
 from comuns import matriz_tuplo, dist_manhatan, GOAL
 
-#matriz_jogo_quinze = [[1,2,3,4],[5,6,0,8],[9,10,7,11],[13,14,15,12]]
-matriz_jogo_quinze = [[2,5,6,8],[1,4,9,10],[12,14,15,3], [13,7,11,0]]
+matriz_jogo_quinze = [[1,2,3,4],[5,6,0,8],[9,10,7,11],[13,14,15,12]]
+#matriz_jogo_quinze = [[2,5,6,8],[1,4,9,10],[12,14,15,3], [13,7,11,0]]
 #matriz_jogo_quinze = [[5, 0, 2, 11],[14, 1, 3, 6],[9, 8, 13, 7],[10, 15, 4, 12]]
 
 #matriz_jogo_quinze = [[1,2,3,4],[5,6,7,8],[9,10,11,12], [13,14,0,15]]
@@ -126,13 +126,13 @@ def train_q_learning(env, episodes=5000, alpha=0.1, gamma=0.99, epsilon=0.2, max
     return Q
 
 
-def test_policy(env, Q, max_steps=10000):
+def test_policy(env, Q, max_steps):
     state = env.reset(env.state)
     contador = 0
     print("Estado Inicial:")
     print([list(state[i:i+4]) for i in range(0,16,4)])
     
-    while contador != max_steps:
+    while contador < max_steps:
         valid_actions = env.actions_valida()
         
         # Escolher a melhor ação
@@ -150,12 +150,14 @@ def test_policy(env, Q, max_steps=10000):
         
         if fim:
             print(f"Tabuleiro resolvido em {contador} tentativas")
-            break
+            return
     
+        
     print(f"O puzzle não foi resolvido em {contador} tentativas")
+             
     
 
-def r_learning(initial_board, episodes=2000,max_test_steps=10000):
+def r_learning(initial_board,max_test_steps, episodes=2000):
     initial_state = matriz_tuplo(initial_board)
 
     # Init Env
@@ -176,6 +178,6 @@ if __name__ == "__main__":
     env = PuzzleEnv(initial_state)
     Q = train_q_learning(env, episodes=2000)  # train for 2000 episodes
     env.reset(matriz_tuplo(matriz_jogo_quinze))
-    test_policy(env, Q)
+    test_policy(env, Q,-1)
         
         
