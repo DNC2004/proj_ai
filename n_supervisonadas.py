@@ -1,3 +1,4 @@
+# Não funciona com os goals
 from comuns import matriz_tuplo, get_neighbors, GOALS, MAX_LIMIT
 
 # Funções para os algoritmos BFS e DFS

@@ -1,3 +1,4 @@
+# Não funciona com os goals
 # Funções comuns a vários algoritmos
 GOALS = {
     "zf": (

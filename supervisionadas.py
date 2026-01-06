@@ -1,3 +1,4 @@
+# Não funciona com os goals
 import heapq
 from comuns import matriz_tuplo, get_neighbors, dist_manhatan, GOALS, MAX_LIMIT
 # Impossível
