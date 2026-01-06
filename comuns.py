@@ -4,6 +4,8 @@ GOAL = (1,2,3,4,
         9,10,11,12,
         13,14,15,0)
 
+MAX_LIMT = 100000000
+
 GOAL_POSITIONS = {
     value: divmod(i, 4)
     for i, value in enumerate(GOAL)
@@ -29,7 +31,7 @@ def get_neighbors(state):
 
     return neighbors
 
-def dist_manhatan(tabuleiro, goal): # Distância da posição atual do quadrado para a posição onde este é suposto estar
+def dist_manhatan(tabuleiro): # Distância da posição atual do quadrado para a posição onde este é suposto estar
     dist = 0
     
     for i, quadrado in enumerate(tabuleiro):
