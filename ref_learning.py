@@ -1,5 +1,5 @@
 import random
-from comuns import matriz_tuplo, dist_manhatan, GOAL, MAX_LIMT
+from comuns import matriz_tuplo, dist_manhatan, GOALS, MAX_LIMIT
 
 matriz_jogo_quinze = [[1,2,3,4],[5,6,0,8],[9,10,7,11],[13,14,15,12]]
 #matriz_jogo_quinze = [[2,5,6,8],[1,4,9,10],[12,14,15,3], [13,7,11,0]]
@@ -41,7 +41,7 @@ def reward(state, next_state, goal):
 class PuzzleEnv:
     def __init__(self, estado):
         self.state = estado
-        self.goal = GOAL
+        self.goal = GOALS
         
     def actions_valida(self):
         return actions_valida(self.state)
@@ -123,7 +123,6 @@ def train_q_learning(env, episodes, alpha=0.1, gamma=0.99, epsilon=0.2, max_step
 
 def test_policy(env, Q, max_steps):
     
-    
     if max_steps == -1:
         max_steps = float("inf")
     
@@ -155,7 +154,7 @@ def test_policy(env, Q, max_steps):
             print(f"Tabuleiro resolvido em {contador} tentativas")
             return
     
-        if contador == MAX_LIMT:
+        if contador == MAX_LIMIT:
             print(f"O puzzle não foi resolvido em {contador} tentativas")
             return
              

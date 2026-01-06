@@ -1,4 +1,4 @@
-from comuns import matriz_tuplo, get_neighbors, GOAL, MAX_LIMT
+from comuns import matriz_tuplo, get_neighbors, GOALS, MAX_LIMIT
 
 # Funções para os algoritmos BFS e DFS
 #matriz_jogo_quinze = [[2,5,6,8],[1,4,9,10],[12,14,15,3], [13,7,11,0]]
@@ -7,7 +7,7 @@ matriz_jogo_quinze = [[1,2,3,4],[5,6,7,8],[9,10,11,12], [13,14,0,15]]
 # Modificar para funcionar com as matrizes
 def bfs(matriz_init, limite):
     init = matriz_tuplo(matriz_init)
-    fim = GOAL
+    fim = GOALS
     
     visitados = set()
     gerados = []
@@ -40,7 +40,7 @@ def bfs(matriz_init, limite):
             print(f"O || BFS || não resolveu o tabuleiro em {contador} tentativas")
             return False
         
-        elif contador == MAX_LIMT:
+        elif contador == MAX_LIMIT:
             print(f"O || BFS || não resolveu o tabuleiro em {contador} tentativas")
             return False
         
@@ -52,7 +52,7 @@ def bfs(matriz_init, limite):
 def dfs(matriz_init,limite):
     
     init = matriz_tuplo(matriz_init)
-    fim = GOAL
+    fim = GOALS
     
     visitados = set()
     gerados = []
@@ -85,7 +85,7 @@ def dfs(matriz_init,limite):
             print(f"O || BFS || não resolveu o tabuleiro em {contador} tentativas")
             return False
         
-        elif contador == MAX_LIMT:
+        elif contador == MAX_LIMIT:
             print(f"O || BFS || não resolveu o tabuleiro em {contador} tentativas")
             return False
         

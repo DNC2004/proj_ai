@@ -1,5 +1,5 @@
 import heapq
-from comuns import matriz_tuplo, get_neighbors, dist_manhatan, GOAL, MAX_LIMT
+from comuns import matriz_tuplo, get_neighbors, dist_manhatan, GOALS, MAX_LIMIT
 # Impossível
 # matriz_jogo_quinze = [[2,5,6,8],[1,4,9,10],[12,14,15,3], [13,7,11,0]]
 # matriz_jogo_quinze = [[14,13,15,7],[11,12,9,5],[6,0,2,1],[4,8,10,3]]
@@ -18,7 +18,7 @@ matriz_jogo_quinze = [[5, 0, 2, 11],[14, 1, 3, 6],[9, 8, 13, 7],[10, 15, 4, 12]]
 # Greedy Best First Search (Não contabiliza o custo só a distância)
 def gbfs(matriz_tabuleiro, limite):
     tabuleiro = matriz_tuplo(matriz_tabuleiro)
-    goal = GOAL
+    goal = GOALS
     
     fila = []
     heapq.heappush(fila, (dist_manhatan(tabuleiro), tabuleiro))
@@ -38,7 +38,7 @@ def gbfs(matriz_tabuleiro, limite):
             print(f"O || GBFS || não resolveu o tabuleiro em {contador} tentativas.")
             break
         
-        elif contador == MAX_LIMT:
+        elif contador == MAX_LIMIT:
             print(f"O || GBFS || não resolveu o tabuleiro em {contador} tentativas.")
             break
         
@@ -62,7 +62,7 @@ def gbfs(matriz_tabuleiro, limite):
 def unc(matriz_tabuleiro,limite):
     fila = []
     tabuleiro = matriz_tuplo(matriz_tabuleiro)
-    goal = GOAL
+    goal = GOALS
     
     heapq.heappush(fila, (0, tabuleiro))
     
@@ -81,7 +81,7 @@ def unc(matriz_tabuleiro,limite):
             print(f"O || UCS || não resolveu o tabuleiro em {contador} tentativas.")
             break
         
-        elif contador == MAX_LIMT:
+        elif contador == MAX_LIMIT:
             print(f"O || UCS || não resolveu o tabuleiro em {contador} tentativas.")
             break
         
@@ -104,7 +104,7 @@ def unc(matriz_tabuleiro,limite):
 def astar(matriz_tabuleiro,limite):
     fila = []
     tabuleiro = matriz_tuplo(matriz_tabuleiro)
-    goal = GOAL
+    goal = GOALS
     
     heapq.heappush(fila, (dist_manhatan(tabuleiro),0,tabuleiro))
     
@@ -125,7 +125,7 @@ def astar(matriz_tabuleiro,limite):
             print(f"O || A* || não resolveu o tabuleiro em {contador} tentativas.")
             break
         
-        elif contador == MAX_LIMT:
+        elif contador == MAX_LIMIT:
             print(f"O || A* || não resolveu o tabuleiro em {contador} tentativas.")
             break
         
