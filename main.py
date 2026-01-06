@@ -14,27 +14,24 @@ from ref_learning import r_learning
 #matriz_jogo_quinze = [[5, 0, 2, 11],[14, 1, 3, 6],[9, 8, 13, 7],[10, 15, 4, 12]]
 
 # Médias
-matriz_jogo_quinze = [[1,2,3,4],[5,6,0,8],[9,10,7,11],[13,14,15,12]]
+#matriz_jogo_quinze = [[1,2,3,4],[5,6,0,8],[9,10,7,11],[13,14,15,12]]
 
 # Fáceis
 # matriz_jogo_quinze = [[1,2,3,4], [5,6,7,8], [9,14,10,12], [0,13,11,15]]
 # matriz_jogo_quinze = [[1,2,3,4],[5,6,7,8],[9,10,11,12], [13,14,0,15]]
 
+# Matrizes Professor
+matriz_jogo_quinze = [[2,8,12,15],[5,7,4,13],[1,3,11,10],[14,9,6,0]]
 
 def gen_matriz(dificuldade):
     # Solved state
-    matriz = [
-        [1,  2,  3,  4],
-        [5,  6,  7,  8],
-        [9, 10, 11, 12],
-        [13,14,15,  0]
-    ]
+    matriz = [[1,2,3,4],[5,6,7,8],[9, 10, 11,12],[13,14,15,0]]
 
     # Number of shuffling moves by difficulty
     movimentos = {
-        1: random.randint(10, 20),
-        2: random.randint(40, 60),
-        3: random.randint(100, 150)
+        1: random.randint(5, 10),
+        2: random.randint(20, 40),
+        3: random.randint(50, 60)
     }
 
     if dificuldade not in movimentos:
@@ -171,6 +168,7 @@ def menu_supervisionadas(tabuleiro):
         print("╠═══════════════════════════════════════╣")
         print("║  [1] GBFS                             ║")
         print("║  [2] A*                               ║")
+        print("║  [3] UCS                              ║")
         print("║  [0] Regressar                        ║")
         print("╚═══════════════════════════════════════╝")
 
@@ -182,6 +180,10 @@ def menu_supervisionadas(tabuleiro):
         elif esc == "2":
             limite = int(input("Limite (-1 = ilimitado): "))
             astar(tabuleiro, limite)
+        elif esc == "3":
+            limite = int(input("Limite (-1 = ilimitado): "))
+            unc(tabuleiro, limite)
+            
         elif esc == "0":
             break
         else:
