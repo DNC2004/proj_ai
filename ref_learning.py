@@ -1,13 +1,11 @@
 import random
-from comuns import matriz_tuplo, dist_manhatan, GOAL
+from comuns import matriz_tuplo, dist_manhatan, GOAL, MAX_LIMT
 
 matriz_jogo_quinze = [[1,2,3,4],[5,6,0,8],[9,10,7,11],[13,14,15,12]]
 #matriz_jogo_quinze = [[2,5,6,8],[1,4,9,10],[12,14,15,3], [13,7,11,0]]
-#matriz_jogo_quinze = [[5, 0, 2, 11],[14, 1, 3, 6],[9, 8, 13, 7],[10, 15, 4, 12]]
+#matriz_jogo_quinze = [[5,0, 2,11],[14,1,3,6],[9,8,13,7],[10,15,4,12]]
 
 #matriz_jogo_quinze = [[1,2,3,4],[5,6,7,8],[9,10,11,12], [13,14,0,15]]
-matriz_goal = [[1,2,3,4],[5,6,7,8],[9,10,11,12], [13,14,15,0]]
-
 
 actions = {
     0: ("cima",    -1,  0),
@@ -16,10 +14,7 @@ actions = {
     3: ("direita",  0,  1),
 }
 
-print(matriz_tuplo(matriz_goal))
-
 def actions_valida(estado):
-    # (1,2,3,4,5,6,7,8,9,10,11,12,13,14,0,15)
     acao_valida = [0,0,0,0]
     
     p_vazia = estado.index(0)
@@ -40,7 +35,7 @@ def reward(state, next_state, goal):
     if next_state == goal:
         return 100
 
-    return (dist_manhatan(state,goal) - dist_manhatan(next_state, goal)) - 1
+    return (dist_manhatan(state) - dist_manhatan(next_state)) - 1
     
     
 class PuzzleEnv:
@@ -82,7 +77,7 @@ class PuzzleEnv:
         self.state = estado
         return self.state
     
-def train_q_learning(env, episodes=5000, alpha=0.1, gamma=0.99, epsilon=0.2, max_steps=200):
+def train_q_learning(env, episodes, alpha=0.1, gamma=0.99, epsilon=0.2, max_steps=200):
     Q = {} # Guarda o reward para cada ação
     
     for ep in range(episodes):
@@ -128,6 +123,7 @@ def train_q_learning(env, episodes=5000, alpha=0.1, gamma=0.99, epsilon=0.2, max
 
 def test_policy(env, Q, max_steps):
     
+    
     if max_steps == -1:
         max_steps = float("inf")
     
@@ -148,20 +144,24 @@ def test_policy(env, Q, max_steps):
 
         next_state, r, fim = env.step(action)
         contador += 1
-        print(f"Step {contador}: Ação '{actions[action][0]}'")
-        print([list(next_state[i:i+4]) for i in range(0,16,4)])
+        
+        if contador % 10000 == 0:    
+            print(f"Step {contador}: Ação '{actions[action][0]}'")
+            print([list(next_state[i:i+4]) for i in range(0,16,4)])
+        
         state = next_state
         
         if fim:
             print(f"Tabuleiro resolvido em {contador} tentativas")
             return
     
-        
-    print(f"O puzzle não foi resolvido em {contador} tentativas")
+        if contador == MAX_LIMT:
+            print(f"O puzzle não foi resolvido em {contador} tentativas")
+            return
              
     
 
-def r_learning(initial_board,max_test_steps, episodes=2000):
+def r_learning(initial_board,max_test_steps, episodes=10000):
     
     if max_test_steps == -1:
         max_steps = float("inf")
