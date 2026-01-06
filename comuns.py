@@ -1,14 +1,30 @@
 # Funções comuns a vários algoritmos
-GOAL = (1,2,3,4,
-        5,6,7,8,
-        9,10,11,12,
-        13,14,15,0)
+GOALS = {
+    "zf": (
+        1, 2, 3, 4,
+        5, 6, 7, 8,
+        9, 10, 11, 12,
+        13, 14, 15, 0
+    ),
+    "zi": (
+        0, 1, 2, 3,
+        4, 5, 6, 7,
+        8, 9, 10, 11,
+        12, 13, 14, 15
+    ),
+}
 
-MAX_LIMT = 100000000
+
+MAX_LIMIT = 100000000
 
 GOAL_POSITIONS = {
-    value: divmod(i, 4)
-    for i, value in enumerate(GOAL)
+
+    name: {
+        value: divmod(i, 4)
+        for i, value in enumerate(goal)
+    }
+    
+    for name, goal in GOALS.items()
 }
 
 def matriz_tuplo(matriz):
