@@ -128,7 +128,9 @@ def menu_algoritmos(tabuleiro):
             menu_supervisionadas(tabuleiro)
         elif op == "3":
             limite = int(input("Limite (-1 = ilimitado): "))
-            r_learning(tabuleiro, limite)
+            for goal in ("zf", "zi"):
+                if r_learning(tabuleiro, limite, goal):
+                     break
         elif op == "0":
             break
         else:
@@ -151,10 +153,18 @@ def menu_nao_supervisionadas(tabuleiro):
 
         if op == "1":
             limite = int(input("Limite (-1 = ilimitado): "))
-            bfs(tabuleiro, limite)
+            for goal in ("zf", "zi"):
+                if bfs(tabuleiro, limite, goal):
+                    print(f"DEBUG -- Resolvido com o goal: {goal}")
+                    break
+                
         elif op == "2":
             limite = int(input("Limite (-1 = ilimitado): "))
-            dfs(tabuleiro, limite)
+            for goal in ("zf", "zi"):
+                if dfs(tabuleiro, limite, goal):
+                    print(f"DEBUG -- Resolvido com o goal: {goal}")
+                    break
+                
         elif op == "0":
             break
         else:
@@ -176,13 +186,24 @@ def menu_supervisionadas(tabuleiro):
 
         if esc == "1":
             limite = int(input("Limite (-1 = ilimitado): "))
-            gbfs(tabuleiro, limite)
+            for goal in ("zf", "zi"):
+                if gbfs(tabuleiro, limite, goal):
+                    print(f"DEBUG -- Resolvido com o goal: {goal}")
+                    break
+                
         elif esc == "2":
             limite = int(input("Limite (-1 = ilimitado): "))
-            astar(tabuleiro, limite)
+            for goal in ("zf", "zi"):
+                if astar(tabuleiro, limite, goal):
+                    print(f"DEBUG -- Resolvido com o goal: {goal}")
+                    break
+            
         elif esc == "3":
             limite = int(input("Limite (-1 = ilimitado): "))
-            unc(tabuleiro, limite)
+            for goal in ("zf", "zi"):
+                if unc(tabuleiro, limite, goal):
+                    print(f"DEBUG -- Resolvido com o goal: {goal}")
+                    break
             
         elif esc == "0":
             break
