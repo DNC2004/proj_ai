@@ -2,12 +2,6 @@
 import random
 from comuns import matriz_tuplo, dist_manhatan, GOALS, MAX_LIMIT
 
-matriz_jogo_quinze = [[1,2,3,4],[5,6,0,8],[9,10,7,11],[13,14,15,12]]
-#matriz_jogo_quinze = [[2,5,6,8],[1,4,9,10],[12,14,15,3], [13,7,11,0]]
-#matriz_jogo_quinze = [[5,0, 2,11],[14,1,3,6],[9,8,13,7],[10,15,4,12]]
-
-#matriz_jogo_quinze = [[1,2,3,4],[5,6,7,8],[9,10,11,12], [13,14,0,15]]
-
 actions = {
     0: ("cima",    -1,  0),
     1: ("baixo",    1,  0),
@@ -15,13 +9,17 @@ actions = {
     3: ("direita",  0,  1),
 }
 
+
+# Ações Válidas no quadrado vazio
 def actions_valida(estado):
     acao_valida = [0,0,0,0]
     
+    # Posição do quadrado vazio
     p_vazia = estado.index(0)
     fila = p_vazia // 4
     coluna = p_vazia % 4
     
+    # Encontrar opções válidas para a posição
     for action_id, (_,df,dc) in actions.items():
         new_fila = fila + df
         new_coluna = coluna + dc
@@ -31,7 +29,8 @@ def actions_valida(estado):
     
     return acao_valida
 
-    
+
+# Reward em cada etapa
 def reward(state,next_state, tipo_goal):
     goal = GOALS[tipo_goal]
     
@@ -39,8 +38,9 @@ def reward(state,next_state, tipo_goal):
         return 1000
     
     return dist_manhatan(state, tipo_goal) - dist_manhatan(next_state, tipo_goal)
-    
-    
+  
+
+# Modelo Q-Learn   
 class PuzzleEnv:
     def __init__(self, estado, tipo_goal):
         self.state = estado
@@ -81,11 +81,13 @@ class PuzzleEnv:
     def reset(self, estado):
         self.state = estado
         return self.state
-    
+
+
+# Treinar o mnodelo
 def train_q_learning(env, episodes, max_steps,alpha=0.1, gamma=0.99, epsilon=1,epsilon_min=0.01,epsilon_decay=0.995,Q = None):
     if Q is None:
         print("DEBUG -- Modelo Q ainda não existe, a criar...")
-        Q = {} # Guarda o reward para cada ação
+        Q = {}
     
     estado_init = tuple(env.state)
     
@@ -132,6 +134,7 @@ def train_q_learning(env, episodes, max_steps,alpha=0.1, gamma=0.99, epsilon=1,e
     return Q
 
 
+# Testar o modelo
 def test_policy(env, Q, max_steps):
     
     if max_steps == -1:
@@ -142,7 +145,6 @@ def test_policy(env, Q, max_steps):
     
     print("Estado Inicial:")
     print([list(state[i:i+4]) for i in range(0,16,4)])
-    #visitado = set()
     
     while contador < max_steps:
         valid_actions = env.actions_valida()
@@ -159,19 +161,11 @@ def test_policy(env, Q, max_steps):
 
         next_state, r, fim = env.step(action)
         contador += 1
-        
-        """
-        if next_state in visitado:
-            print("DEBUG -- Loop detetado")
-            action = random.choice([i for i,v in enumerate(valid_actions) if v])
-            next_state, r, fim = env.step(action)
-        """
-        
+         
         if contador % 1000000 == 0:    
             print(f"DEBUG -- Step {contador}: Ação '{actions[action][0]}'")
             print([list(next_state[i:i+4]) for i in range(0,16,4)])
         
-        # visitado.add(next_state)
         state = next_state
  
         if fim:
@@ -186,7 +180,7 @@ def test_policy(env, Q, max_steps):
     return False
              
     
-
+# Função Reinforcement Learning usada no main
 def r_learning(initial_board,max_test_steps, tipo_goal,Q=None,episodes=10000, steps_treino = 3000):
     
     if max_test_steps == -1:
@@ -206,13 +200,4 @@ def r_learning(initial_board,max_test_steps, tipo_goal,Q=None,episodes=10000, st
     solu = test_policy(env, Q, max_steps)
 
     return solu, Q
-        
-if __name__ == "__main__":
-    initial_state = matriz_tuplo(matriz_jogo_quinze)
-    env = PuzzleEnv(initial_state, "zf")
-    Q = {}
-    Q = train_q_learning(env, episodes=2000, Q=Q)  # train for 2000 episodes
-    env.reset(matriz_tuplo(matriz_jogo_quinze))
-    test_policy(env, Q,-1)
-        
         
