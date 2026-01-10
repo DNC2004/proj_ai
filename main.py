@@ -1,7 +1,7 @@
 ## Interface
 import random
-from n_supervisonadas import dfs, bfs
-from supervisionadas import unc, astar,gbfs
+from n_informadas import dfs, bfs
+from informadas import unc, astar,gbfs
 from ref_learning import r_learning
 from comuns import GOALS
 
