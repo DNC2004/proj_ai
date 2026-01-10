@@ -23,6 +23,8 @@ from comuns import GOALS
 
 # Matrizes Professor
 matriz_jogo_quinze = [[2,8,12,15],[5,7,4,13],[1,3,11,10],[14,9,6,0]]
+Q = {}
+
 
 def gen_matriz(dificuldade):
     # Solved state
@@ -110,6 +112,8 @@ def menu_dificuldade():
 
 # Menu Principal Algoritmos
 def menu_algoritmos(tabuleiro):
+    global Q
+    
     while True:
         print("\n╔═══════════════════════════════════════╗")
         print("║             ALGORITMOS                ║")
@@ -130,17 +134,19 @@ def menu_algoritmos(tabuleiro):
         elif op == "3":
             limite = int(input("Limite (-1 = ilimitado): "))
             solucao = False
+            print("DEBUG -- Q existe, tamanho =", len(Q))
             for goal in ("zf", "zi"):
                 print(f"DEBUG -- A testar o goal: {GOALS[goal]}")
                 solved, Q = r_learning(tabuleiro,limite,goal, Q=Q)
+
                 
                 if solved:
                     print(f"DEBUG -- Resolvido com o goal: {goal}")
                     solucao = True
                     break 
 
-        if not solucao:
-            print("O || RL || não conseguiu encontrar uma solução para nenhuma das opções disponíveis.")
+            if not solucao:
+                print("O || RL || não conseguiu encontrar uma solução para nenhuma das opções disponíveis.")
 
         elif op == "0":
             break
@@ -280,4 +286,5 @@ def main():
 
 
 if __name__ == "__main__":
+    
     main()
