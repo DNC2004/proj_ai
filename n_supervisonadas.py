@@ -1,11 +1,6 @@
-# Não funciona com os goals
 from comuns import matriz_tuplo, get_neighbors, GOALS, MAX_LIMIT
-
 # Funções para os algoritmos BFS e DFS
-#matriz_jogo_quinze = [[2,5,6,8],[1,4,9,10],[12,14,15,3], [13,7,11,0]]
-matriz_jogo_quinze = [[1,2,3,4],[5,6,7,8],[9,10,11,12], [13,14,0,15]]
 
-# Modificar para funcionar com as matrizes
 def bfs(matriz_init, limite, tipo_goal):
     init = matriz_tuplo(matriz_init)
     fim = GOALS[tipo_goal]
@@ -93,8 +88,3 @@ def dfs(matriz_init,limite, tipo_goal):
         
         
     return False, gerados, expandidos
-
-if __name__ == "__main__":
-    bfs(matriz_jogo_quinze,-1)
-    #dfs(matriz_jogo_quinze)
-    
