@@ -62,7 +62,7 @@ def dfs(matriz_init,limite, tipo_goal):
         node = pilha.pop()
         contador +=1
         
-        if contador % 10000:
+        if contador % 10000 == 0:
             print(f"DEBUG -- Tentativa num: {contador}")
         
         if node not in visitados:
