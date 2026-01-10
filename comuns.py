@@ -1,5 +1,7 @@
 # Não funciona com os goals
 # Funções comuns a vários algoritmos
+MAX_LIMIT = 100000000
+
 GOALS = {
     "zf": (
         1, 2, 3, 4,
@@ -16,7 +18,6 @@ GOALS = {
 }
 
 
-MAX_LIMIT = 100000000
 
 GOAL_POSITIONS = {
 
@@ -48,16 +49,17 @@ def get_neighbors(state):
 
     return neighbors
 
-def dist_manhatan(tabuleiro): # Distância da posição atual do quadrado para a posição onde este é suposto estar
+def dist_manhatan(tabuleiro, goal_name): # Distância da posição atual do quadrado para a posição onde este é suposto estar
     dist = 0
+    posicoes_pos = GOAL_POSITIONS[goal_name]
+    
     
     for i, quadrado in enumerate(tabuleiro):
         if quadrado == 0:
             continue
         
         fila, coluna = divmod(i,4) # Posição do quadrado atual
-        
-        goal_fila, goal_coluna = GOAL_POSITIONS[quadrado] # Posição suposta do quadrado
+        goal_fila, goal_coluna = posicoes_pos[quadrado] # Posição suposta do quadrado
 
         dist += abs(fila - goal_fila) + abs(coluna - goal_coluna) # Calcular a distância em si
 
