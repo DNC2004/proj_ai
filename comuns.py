@@ -1,6 +1,6 @@
 # Não funciona com os goals
 # Funções comuns a vários algoritmos
-MAX_LIMIT = 100000000
+MAX_LIMIT = 10000000
 
 GOALS = {
     "zf": (
