@@ -22,7 +22,7 @@ def gbfs(matriz_tabuleiro, limite, tipo_goal):
     goal = GOALS[tipo_goal]
     
     fila = []
-    heapq.heappush(fila, (dist_manhatan(tabuleiro, goal), tabuleiro))
+    heapq.heappush(fila, (dist_manhatan(tabuleiro, tipo_goal), tabuleiro))
     
     visitados = set()
     contador = 0
@@ -107,7 +107,7 @@ def astar(matriz_tabuleiro,limite, tipo_goal):
     tabuleiro = matriz_tuplo(matriz_tabuleiro)
     goal = GOALS[tipo_goal]
     
-    heapq.heappush(fila, (dist_manhatan(tabuleiro),0,tabuleiro))
+    heapq.heappush(fila, (dist_manhatan(tabuleiro, tipo_goal),0,tabuleiro))
     
     visitados = {}
     contador = 0
