@@ -6,9 +6,9 @@ from comuns import matriz_tuplo, get_neighbors, GOALS, MAX_LIMIT
 matriz_jogo_quinze = [[1,2,3,4],[5,6,7,8],[9,10,11,12], [13,14,0,15]]
 
 # Modificar para funcionar com as matrizes
-def bfs(matriz_init, limite):
+def bfs(matriz_init, limite, tipo_goal):
     init = matriz_tuplo(matriz_init)
-    fim = GOALS
+    fim = GOALS[tipo_goal]
     
     visitados = set()
     gerados = []
@@ -22,7 +22,8 @@ def bfs(matriz_init, limite):
         node = fila.pop(0)
         contador+=1
         
-        print(f"DEBUG -- Tentativa num: {contador}")
+        if contador % 10000 == 0: 
+            print(f"DEBUG -- Tentativa num: {contador}")
         
         if node not in visitados:
             visitados.add(node)
@@ -42,7 +43,7 @@ def bfs(matriz_init, limite):
             return False
         
         elif contador == MAX_LIMIT:
-            print(f"O || BFS || não resolveu o tabuleiro em {contador} tentativas")
+            print(f"O || BFS || não resolveu o tabuleiro em {contador} tentativas -- LIMITE ACIONADO")
             return False
         
                 
@@ -50,10 +51,10 @@ def bfs(matriz_init, limite):
 
 
 # Modificar para funcionar com as matrizes
-def dfs(matriz_init,limite):
+def dfs(matriz_init,limite, tipo_goal):
     
     init = matriz_tuplo(matriz_init)
-    fim = GOALS
+    fim = GOALS[tipo_goal]
     
     visitados = set()
     gerados = []
@@ -66,8 +67,8 @@ def dfs(matriz_init,limite):
         node = pilha.pop()
         contador +=1
         
-        print(f"DEBUG -- Tentativa num: {contador}")
-        
+        if contador % 10000:
+            print(f"DEBUG -- Tentativa num: {contador}")
         
         if node not in visitados:
             visitados.add(node)

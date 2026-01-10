@@ -17,12 +17,12 @@ matriz_jogo_quinze = [[5, 0, 2, 11],[14, 1, 3, 6],[9, 8, 13, 7],[10, 15, 4, 12]]
 # Limite = -1 --> Não queremos limite
 
 # Greedy Best First Search (Não contabiliza o custo só a distância)
-def gbfs(matriz_tabuleiro, limite):
+def gbfs(matriz_tabuleiro, limite, tipo_goal):
     tabuleiro = matriz_tuplo(matriz_tabuleiro)
-    goal = GOALS
+    goal = GOALS[tipo_goal]
     
     fila = []
-    heapq.heappush(fila, (dist_manhatan(tabuleiro), tabuleiro))
+    heapq.heappush(fila, (dist_manhatan(tabuleiro, goal), tabuleiro))
     
     visitados = set()
     contador = 0
@@ -55,15 +55,15 @@ def gbfs(matriz_tabuleiro, limite):
         
         for vizi in get_neighbors(node):
             if vizi not in visitados:
-                heapq.heappush(fila, (dist_manhatan(vizi),vizi))
+                heapq.heappush(fila, (dist_manhatan(vizi,tipo_goal),vizi))
     
     return False
 
 # Uniforme Cost Search (Custo sem heurística)
-def unc(matriz_tabuleiro,limite):
+def unc(matriz_tabuleiro,limite, tipo_goal):
     fila = []
     tabuleiro = matriz_tuplo(matriz_tabuleiro)
-    goal = GOALS
+    goal = GOALS[tipo_goal]
     
     heapq.heappush(fila, (0, tabuleiro))
     
@@ -102,10 +102,10 @@ def unc(matriz_tabuleiro,limite):
     return False
 
 # A* (Custo com heurística)
-def astar(matriz_tabuleiro,limite):
+def astar(matriz_tabuleiro,limite, tipo_goal):
     fila = []
     tabuleiro = matriz_tuplo(matriz_tabuleiro)
-    goal = GOALS
+    goal = GOALS[tipo_goal]
     
     heapq.heappush(fila, (dist_manhatan(tabuleiro),0,tabuleiro))
     
@@ -142,7 +142,7 @@ def astar(matriz_tabuleiro,limite):
         
         for vizi in get_neighbors(node):
             custo_att = custo_atual + 1
-            custo_estimado_att = custo_att + dist_manhatan(vizi)
+            custo_estimado_att = custo_att + dist_manhatan(vizi,tipo_goal)
             heapq.heappush(fila, (custo_estimado_att, custo_att, vizi)) 
     return False
 

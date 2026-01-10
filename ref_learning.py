@@ -32,17 +32,20 @@ def actions_valida(estado):
     return acao_valida
 
     
-def reward(state, next_state, goal):
+def reward(state, next_state, tipo_goal):
+    goal = GOALS[tipo_goal]
+    
     if next_state == goal:
         return 100
 
-    return (dist_manhatan(state) - dist_manhatan(next_state)) - 1
+    return (dist_manhatan(state, tipo_goal) - dist_manhatan(next_state, tipo_goal)) - 1
     
     
 class PuzzleEnv:
-    def __init__(self, estado):
+    def __init__(self, estado, tipo_goal):
         self.state = estado
-        self.goal = GOALS
+        self.tipo_goal = tipo_goal
+        self.goal = GOALS[tipo_goal]
         
     def actions_valida(self):
         return actions_valida(self.state)
@@ -68,7 +71,7 @@ class PuzzleEnv:
         novo_estado = tuple(novo_estado)
         
         # Calcular o reward
-        re = reward(self.state, novo_estado, self.goal)
+        re = reward(self.state, novo_estado, self.tipo_goal)
         self.state = novo_estado
         
         fim = novo_estado == self.goal
@@ -153,15 +156,17 @@ def test_policy(env, Q, max_steps):
         
         if fim:
             print(f"Tabuleiro resolvido em {contador} tentativas")
-            return
+            return True
     
         if contador == MAX_LIMIT:
             print(f"O puzzle não foi resolvido em {contador} tentativas")
-            return
+            return False
+    
+    return False
              
     
 
-def r_learning(initial_board,max_test_steps, episodes=10000):
+def r_learning(initial_board,max_test_steps, tipo_goal, episodes=10000):
     
     if max_test_steps == -1:
         max_steps = float("inf")
@@ -169,7 +174,7 @@ def r_learning(initial_board,max_test_steps, episodes=10000):
     initial_state = matriz_tuplo(initial_board)
 
     # Init Env
-    env = PuzzleEnv(initial_state)
+    env = PuzzleEnv(initial_state, tipo_goal)
 
     # Treino
     Q = train_q_learning(env, episodes=episodes)
@@ -177,9 +182,9 @@ def r_learning(initial_board,max_test_steps, episodes=10000):
     env.reset(initial_state)
 
     # Testar a policy
-    test_policy(env, Q, max_steps=max_test_steps)
+    solu = test_policy(env, Q, max_steps=max_test_steps)
 
-    return Q
+    return solu
         
 if __name__ == "__main__":
     initial_state = matriz_tuplo(matriz_jogo_quinze)
