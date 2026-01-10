@@ -32,13 +32,13 @@ def actions_valida(estado):
     return acao_valida
 
     
-def reward(state, next_state, tipo_goal):
+def reward(state,next_state, tipo_goal):
     goal = GOALS[tipo_goal]
     
     if next_state == goal:
         return 1000
     
-    return (dist_manhatan(state, tipo_goal) - dist_manhatan(next_state, tipo_goal)) - 1
+    return dist_manhatan(state, tipo_goal) - dist_manhatan(next_state, tipo_goal)
     
     
 class PuzzleEnv:
@@ -51,8 +51,9 @@ class PuzzleEnv:
         return actions_valida(self.state)
     
     def step(self, action_id):
-        if not self.actions_valida()[action_id]:
-            raise ValueError("ERRO -- Não existem ações válidas...")
+        valida = self.actions_valida()
+        if not valida[action_id]:
+            return self.state, -10, False
         
         # Quadrado em vazio
         tile_vazio = self.state.index(0)
@@ -85,12 +86,15 @@ def train_q_learning(env, episodes, max_steps,alpha=0.1, gamma=0.99, epsilon=1,e
     if Q is None:
         print("DEBUG -- Modelo Q ainda não existe, a criar...")
         Q = {} # Guarda o reward para cada ação
-        
+    
+    estado_init = tuple(env.state)
+    
+    print("DEBUG -- Treino Começado...")
     for ep in range(episodes):
-        state = env.reset(env.state)
+        state = env.reset(estado_init)
+        step = 0
         
-        for step in range(max_steps):
-            
+        while step < max_steps:
             if state not in Q:
                 Q[state] = [0, 0, 0, 0]
             
@@ -103,8 +107,6 @@ def train_q_learning(env, episodes, max_steps,alpha=0.1, gamma=0.99, epsilon=1,e
             else:
                 # Escolhe a ação com o melhor max Q val
                 q_vals = [Q[state][i] if valid_actions[i] else -float('inf') for i in range(4)]
-                max_q = max(q_vals)
-                me_action = [i for i, q in enumerate(q_vals) if q == max_q]
                 action = q_vals.index(max(q_vals))
             
             # Ação escolhida
@@ -117,14 +119,16 @@ def train_q_learning(env, episodes, max_steps,alpha=0.1, gamma=0.99, epsilon=1,e
             Q[state][action] = Q[state][action] + alpha * (r + gamma * max(Q[prox_estado]) - Q[state][action])
             
             state = prox_estado
+            step += 1
             
             if fim: break
         
         epsilon = max(epsilon_min, epsilon * epsilon_decay)
         
         if (ep + 1) % 500 == 0:
-            print(f"Episode {ep + 1} finished")
+            print(f"DEBUG -- Episode {ep + 1} terminado")
     
+    print("DEBUG -- Treino terminado...")
     return Q
 
 
@@ -138,6 +142,7 @@ def test_policy(env, Q, max_steps):
     
     print("Estado Inicial:")
     print([list(state[i:i+4]) for i in range(0,16,4)])
+    #visitado = set()
     
     while contador < max_steps:
         valid_actions = env.actions_valida()
@@ -145,19 +150,30 @@ def test_policy(env, Q, max_steps):
         # Escolher a melhor ação
         q_vals = [Q.get(state, [0,0,0,0])[i] if valid_actions[i] else -float('inf') for i in range(4)]
         max_q = max(q_vals)
-        
         best_actions = [i for i, q in enumerate(q_vals) if q == max_q]
-        action = random.choice(best_actions)  
+        
+        if max_q <= 0:
+            action = random.choice([i for i,v in enumerate(valid_actions) if v])
+        else:
+            action = random.choice(best_actions)  
 
         next_state, r, fim = env.step(action)
         contador += 1
         
-        if contador % 10000 == 0:    
-            print(f"Step {contador}: Ação '{actions[action][0]}'")
+        """
+        if next_state in visitado:
+            print("DEBUG -- Loop detetado")
+            action = random.choice([i for i,v in enumerate(valid_actions) if v])
+            next_state, r, fim = env.step(action)
+        """
+        
+        if contador % 1000000 == 0:    
+            print(f"DEBUG -- Step {contador}: Ação '{actions[action][0]}'")
             print([list(next_state[i:i+4]) for i in range(0,16,4)])
         
+        # visitado.add(next_state)
         state = next_state
-        
+ 
         if fim:
             print(f"Tabuleiro resolvido em {contador} tentativas")
             return True
@@ -171,7 +187,7 @@ def test_policy(env, Q, max_steps):
              
     
 
-def r_learning(initial_board,max_test_steps, tipo_goal, episodes=10000):
+def r_learning(initial_board,max_test_steps, tipo_goal,Q=None,episodes=10000, steps_treino = 3000):
     
     if max_test_steps == -1:
         max_steps = float("inf")
@@ -182,14 +198,14 @@ def r_learning(initial_board,max_test_steps, tipo_goal, episodes=10000):
     env = PuzzleEnv(initial_state, tipo_goal)
 
     # Treino
-    Q = train_q_learning(env,max_steps,episodes)
+    Q = train_q_learning(env,episodes = episodes, max_steps=steps_treino,Q=Q)
 
     env.reset(initial_state)
 
     # Testar a policy
-    solu = test_policy(env, Q, max_steps=max_test_steps)
+    solu = test_policy(env, Q, max_steps)
 
-    return solu
+    return solu, Q
         
 if __name__ == "__main__":
     initial_state = matriz_tuplo(matriz_jogo_quinze)
