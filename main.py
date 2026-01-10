@@ -3,7 +3,7 @@ import random
 from n_supervisonadas import dfs, bfs
 from supervisionadas import unc, astar,gbfs
 from ref_learning import r_learning
-import comuns
+from comuns import GOALS
 
 # matriz_goal = [[1,2,3,4],[5,6,7,8],[9,10,11,12], [13,14,15,0]] Não é preciso
 
@@ -129,9 +129,19 @@ def menu_algoritmos(tabuleiro):
             menu_supervisionadas(tabuleiro)
         elif op == "3":
             limite = int(input("Limite (-1 = ilimitado): "))
+            solucao = False
             for goal in ("zf", "zi"):
-                if r_learning(tabuleiro, limite, goal):
-                     break
+                print(f"DEBUG -- A testar o goal: {GOALS[goal]}")
+                solved, Q = r_learning(tabuleiro,limite,goal, Q=Q)
+                
+                if solved:
+                    print(f"DEBUG -- Resolvido com o goal: {goal}")
+                    solucao = True
+                    break 
+
+        if not solucao:
+            print("O || RL || não conseguiu encontrar uma solução para nenhuma das opções disponíveis.")
+
         elif op == "0":
             break
         else:
@@ -155,16 +165,24 @@ def menu_nao_supervisionadas(tabuleiro):
         if op == "1":
             limite = int(input("Limite (-1 = ilimitado): "))
             for goal in ("zf", "zi"):
+                print(f"DEBUG -- A testar o goal: {GOALS[goal]}")
                 if bfs(tabuleiro, limite, goal):
                     print(f"DEBUG -- Resolvido com o goal: {goal}")
                     break
+
+            print(f"O || BFS || não consiguiu encontrar uma solução para nenhuma das opções disponível.")
+
                 
         elif op == "2":
             limite = int(input("Limite (-1 = ilimitado): "))
             for goal in ("zf", "zi"):
+                print(f"DEBUG -- A testar o goal: {GOALS[goal]}")
                 if dfs(tabuleiro, limite, goal):
                     print(f"DEBUG -- Resolvido com o goal: {goal}")
                     break
+
+            print(f"O || DFS || não consiguiu encontrar uma solução para nenhuma das opções disponível.")
+
                 
         elif op == "0":
             break
@@ -188,23 +206,34 @@ def menu_supervisionadas(tabuleiro):
         if esc == "1":
             limite = int(input("Limite (-1 = ilimitado): "))
             for goal in ("zf", "zi"):
+                print(f"DEBUG -- A testar o goal: {GOALS[goal]}")
+
                 if gbfs(tabuleiro, limite, goal):
                     print(f"DEBUG -- Resolvido com o goal: {goal}")
                     break
                 
+            print(f"O || GBFS || não consiguiu encontrar uma solução para nenhuma das opções disponível.")
+    
         elif esc == "2":
             limite = int(input("Limite (-1 = ilimitado): "))
             for goal in ("zf", "zi"):
+                print(f"DEBUG -- A testar o goal: {GOALS[goal]}")
+
                 if astar(tabuleiro, limite, goal):
                     print(f"DEBUG -- Resolvido com o goal: {goal}")
                     break
             
+            print(f"O || A* || não consiguiu encontrar uma solução para nenhuma das opções disponível.")
+
         elif esc == "3":
             limite = int(input("Limite (-1 = ilimitado): "))
             for goal in ("zf", "zi"):
+                print(f"DEBUG -- A testar o goal: {GOALS[goal]}")
                 if unc(tabuleiro, limite, goal):
                     print(f"DEBUG -- Resolvido com o goal: {goal}")
                     break
+                
+            print(f"O || UCS || não consiguiu encontrar uma solução para nenhuma das opções disponível.")
             
         elif esc == "0":
             break
