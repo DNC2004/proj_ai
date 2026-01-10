@@ -37,11 +37,11 @@ def gbfs(matriz_tabuleiro, limite, tipo_goal):
             
         if contador == limite:
             print(f"O || GBFS || não resolveu o tabuleiro em {contador} tentativas.")
-            break
+            return False
         
         elif contador == MAX_LIMIT:
             print(f"O || GBFS || não resolveu o tabuleiro em {contador} tentativas.")
-            break
+            return False
         
         
         if node in visitados:
@@ -75,16 +75,16 @@ def unc(matriz_tabuleiro,limite, tipo_goal):
         contador += 1
         #print(f"DEBUG -- Custo atual: {custo} | Nó atual: {node}")
         
-        if contador % 10000 == 0:
+        if contador % 100000 == 0:
             print(f"Tentativa: {contador}")
             
         if contador == limite:
             print(f"O || UCS || não resolveu o tabuleiro em {contador} tentativas.")
-            break
+            return False
         
         elif contador == MAX_LIMIT:
             print(f"O || UCS || não resolveu o tabuleiro em {contador} tentativas.")
-            break
+            return False
         
         
         if node in visitados and visitados[node] <= custo:
@@ -124,11 +124,11 @@ def astar(matriz_tabuleiro,limite, tipo_goal):
             
         if contador == limite:
             print(f"O || A* || não resolveu o tabuleiro em {contador} tentativas.")
-            break
+            return False
         
         elif contador == MAX_LIMIT:
             print(f"O || A* || não resolveu o tabuleiro em {contador} tentativas.")
-            break
+            return False
         
         if node in visitados and visitados[node] <= custo_atual:
             continue
