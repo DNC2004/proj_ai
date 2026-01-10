@@ -1,7 +1,9 @@
-# Não funciona com os goals
-# Funções comuns a vários algoritmos
+# Funções e variáveis comuns a vários algoritmos
+
+# Limite máximo possível
 MAX_LIMIT = 10000000
 
+# Objetivos Possíveis
 GOALS = {
     "zf": (
         1, 2, 3, 4,
@@ -17,8 +19,7 @@ GOALS = {
     ),
 }
 
-
-
+# Posições dos quadrados no goal para heuristica
 GOAL_POSITIONS = {
 
     name: {
@@ -49,7 +50,9 @@ def get_neighbors(state):
 
     return neighbors
 
-def dist_manhatan(tabuleiro, goal_name): # Distância da posição atual do quadrado para a posição onde este é suposto estar
+# Heuristica Utilizada
+# Distância da posição atual do quadrado para a posição onde este é suposto estar
+def dist_manhatan(tabuleiro, goal_name): 
     dist = 0
     posicoes_pos = GOAL_POSITIONS[goal_name]
     
