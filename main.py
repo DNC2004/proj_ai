@@ -1,11 +1,9 @@
-## Onde se vai escolher que algoritmo utilizar
+## Interface
 import random
 from n_supervisonadas import dfs, bfs
 from supervisionadas import unc, astar,gbfs
 from ref_learning import r_learning
 from comuns import GOALS
-
-# matriz_goal = [[1,2,3,4],[5,6,7,8],[9,10,11,12], [13,14,15,0]] Não é preciso
 
 # Impossível
 # matriz_jogo_quinze = [[2,5,6,8],[1,4,9,10],[12,14,15,3], [13,7,11,0]]
@@ -23,14 +21,18 @@ from comuns import GOALS
 
 # Matrizes Professor
 matriz_jogo_quinze = [[2,8,12,15],[5,7,4,13],[1,3,11,10],[14,9,6,0]]
+
+
+# Modelo vazio criado em cada run
 Q = {}
 
-
+# Gera matrizes no caso do utilizador não ter nenhuma previamente
 def gen_matriz(dificuldade):
-    # Solved state
+    
+    # Objetivo
     matriz = [[1,2,3,4],[5,6,7,8],[9, 10, 11,12],[13,14,15,0]]
 
-    # Number of shuffling moves by difficulty
+    # Número de movimentos por dificuldade
     movimentos = {
         1: random.randint(5, 10),
         2: random.randint(20, 40),
@@ -47,11 +49,12 @@ def gen_matriz(dificuldade):
                 if m[i][j] == 0:
                     return i, j
 
-    # Possible moves
+    # Movimentos Possíveis
     dirs = [(-1,0), (1,0), (0,-1), (0,1)]
 
     x, y = find_zero(matriz)
 
+    # Gerar a matriz
     for _ in range(movimentos[dificuldade]):
         valid_moves = []
 
@@ -100,13 +103,14 @@ def menu_dificuldade():
         print("║  [0] Regressar                        ║")
         print("╚═══════════════════════════════════════╝")
 
-
         op = input("Escolha: ").strip()
 
         if op in ["1", "2", "3"]:
             return gen_matriz(int(op))
+        
         elif op == "0":
             return None
+        
         else:
             print("Opção inválida.")
 
@@ -135,11 +139,11 @@ def menu_algoritmos(tabuleiro):
             limite = int(input("Limite (-1 = ilimitado): "))
             solucao = False
             print("DEBUG -- Q existe, tamanho =", len(Q))
+            
             for goal in ("zf", "zi"):
                 print(f"DEBUG -- A testar o goal: {GOALS[goal]}")
                 solved, Q = r_learning(tabuleiro,limite,goal, Q=Q)
 
-                
                 if solved:
                     print(f"DEBUG -- Resolvido com o goal: {goal}")
                     solucao = True
@@ -170,26 +174,34 @@ def menu_nao_supervisionadas(tabuleiro):
 
         if op == "1":
             limite = int(input("Limite (-1 = ilimitado): "))
+            solucao = False
+            
             for goal in ("zf", "zi"):
                 print(f"DEBUG -- A testar o goal: {GOALS[goal]}")
+            
                 if bfs(tabuleiro, limite, goal):
                     print(f"DEBUG -- Resolvido com o goal: {goal}")
+                    solucao = True
                     break
 
-            print(f"O || BFS || não consiguiu encontrar uma solução para nenhuma das opções disponível.")
-
-                
+            if not solucao:
+                print(f"O || BFS || não consiguiu encontrar uma solução para nenhuma das opções disponível.")
+    
         elif op == "2":
             limite = int(input("Limite (-1 = ilimitado): "))
+            solucao = False
+            
             for goal in ("zf", "zi"):
                 print(f"DEBUG -- A testar o goal: {GOALS[goal]}")
+            
                 if dfs(tabuleiro, limite, goal):
                     print(f"DEBUG -- Resolvido com o goal: {goal}")
+                    solucao = True
                     break
+            
+            if not solucao:
+                print(f"O || DFS || não consiguiu encontrar uma solução para nenhuma das opções disponível.")
 
-            print(f"O || DFS || não consiguiu encontrar uma solução para nenhuma das opções disponível.")
-
-                
         elif op == "0":
             break
         else:
@@ -211,41 +223,53 @@ def menu_supervisionadas(tabuleiro):
 
         if esc == "1":
             limite = int(input("Limite (-1 = ilimitado): "))
+            solucao = False
+            
             for goal in ("zf", "zi"):
                 print(f"DEBUG -- A testar o goal: {GOALS[goal]}")
 
                 if gbfs(tabuleiro, limite, goal):
                     print(f"DEBUG -- Resolvido com o goal: {goal}")
+                    solucao = True
                     break
-                
-            print(f"O || GBFS || não consiguiu encontrar uma solução para nenhuma das opções disponível.")
+            
+            if not solucao:
+                print(f"O || GBFS || não consiguiu encontrar uma solução para nenhuma das opções disponível.")
     
         elif esc == "2":
             limite = int(input("Limite (-1 = ilimitado): "))
+            solucao = False
+            
             for goal in ("zf", "zi"):
                 print(f"DEBUG -- A testar o goal: {GOALS[goal]}")
 
                 if astar(tabuleiro, limite, goal):
                     print(f"DEBUG -- Resolvido com o goal: {goal}")
+                    solucao = True
                     break
             
-            print(f"O || A* || não consiguiu encontrar uma solução para nenhuma das opções disponível.")
+            if not solucao:
+                print(f"O || A* || não consiguiu encontrar uma solução para nenhuma das opções disponível.")
 
         elif esc == "3":
             limite = int(input("Limite (-1 = ilimitado): "))
+            solucao = False
+            
             for goal in ("zf", "zi"):
                 print(f"DEBUG -- A testar o goal: {GOALS[goal]}")
+            
                 if unc(tabuleiro, limite, goal):
                     print(f"DEBUG -- Resolvido com o goal: {goal}")
+                    solucao = True
                     break
-                
-            print(f"O || UCS || não consiguiu encontrar uma solução para nenhuma das opções disponível.")
+            
+            if not solucao:
+                print(f"O || UCS || não consiguiu encontrar uma solução para nenhuma das opções disponível.")
             
         elif esc == "0":
             break
         else:
             print("Opção inválida.")
-
 
 
 # Main
@@ -266,6 +290,7 @@ def main():
 
         if op == "1":
             tabuleiro = menu_tabuleiro()
+
             if tabuleiro:
                 print("\nTabuleiro Atual:")
                 for row in tabuleiro:
@@ -283,7 +308,6 @@ def main():
 
         else:
             print("Opção inválida.")
-
 
 if __name__ == "__main__":
     
