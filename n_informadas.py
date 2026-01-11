@@ -80,11 +80,11 @@ def dfs(matriz_init,limite, tipo_goal):
                     gerados.append(vizi)
         
         if contador == limite:
-            print(f"O || BFS || não resolveu o tabuleiro em {contador} tentativas")
+            print(f"O || DFS || não resolveu o tabuleiro em {contador} tentativas")
             return False
         
         elif contador == MAX_LIMIT:
-            print(f"O || BFS || não resolveu o tabuleiro em {contador} tentativas")
+            print(f"O || DFS || não resolveu o tabuleiro em {contador} tentativas")
             return False
         
         
