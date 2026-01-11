@@ -22,13 +22,6 @@ from comuns import GOALS
 # Matrizes Professor
 # matriz_jogo_quinze = [[2,8,12,15],[5,7,4,13],[1,3,11,10],[14,9,6,0]]
 
-# Usar para o relatório
-matriz_jogo_quinze = [
-    [1,  2,  3,  4],
-    [4,  0,  7,  8],
-    [9,  6, 11, 12],
-    [13, 10, 14, 15]
-]
 
 # Modelo vazio criado em cada run
 Q = {}
