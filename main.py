@@ -1,7 +1,7 @@
 ## Interface
 import random
-from n_informadas import dfs, bfs
-from informadas import unc, astar,gbfs
+from n_informadas import dfs, bfs, unc
+from informadas import astar,gbfs
 from ref_learning import r_learning
 from comuns import GOALS
 
@@ -20,8 +20,15 @@ from comuns import GOALS
 # matriz_jogo_quinze = [[1,2,3,4],[5,6,7,8],[9,10,11,12], [13,14,0,15]]
 
 # Matrizes Professor
-matriz_jogo_quinze = [[2,8,12,15],[5,7,4,13],[1,3,11,10],[14,9,6,0]]
+# matriz_jogo_quinze = [[2,8,12,15],[5,7,4,13],[1,3,11,10],[14,9,6,0]]
 
+# Usar para o relatório
+matriz_jogo_quinze = [
+    [1,  2,  3,  4],
+    [4,  0,  7,  8],
+    [9,  6, 11, 12],
+    [13, 10, 14, 15]
+]
 
 # Modelo vazio criado em cada run
 Q = {}
@@ -122,8 +129,8 @@ def menu_algoritmos(tabuleiro):
         print("\n╔═══════════════════════════════════════╗")
         print("║             ALGORITMOS                ║")
         print("╠═══════════════════════════════════════╣")
-        print("║  [1] Procuras Não Supervisionadas     ║")
-        print("║  [2] Procuras Supervisionadas         ║")
+        print("║  [1] Procuras Não Informadas          ║")
+        print("║  [2] Procuras Informadas              ║")
         print("║  [3] Reinforcement Learning           ║")
         print("║  [0] Regressar                        ║")
         print("╚═══════════════════════════════════════╝")
@@ -162,10 +169,11 @@ def menu_algoritmos(tabuleiro):
 def menu_nao_supervisionadas(tabuleiro):
     while True:
         print("\n╔═══════════════════════════════════════╗")
-        print("║     PROCURAS NÃO SUPERVISIONADAS      ║")
+        print("║     PROCURAS NÃO INFORMADAS           ║")
         print("╠═══════════════════════════════════════╣")
         print("║  [1] BFS                              ║")
         print("║  [2] DFS                              ║")
+        print("║  [3] UCS                              ║")
         print("║  [0] Regressar                        ║")
         print("╚═══════════════════════════════════════╝")
 
@@ -198,6 +206,18 @@ def menu_nao_supervisionadas(tabuleiro):
                     print(f"DEBUG -- Resolvido com o goal: {goal}")
                     solucao = True
                     break
+                
+        elif op == "3":
+            limite = int(input("Limite (-1 = ilimitado): "))
+            solucao = False
+            
+            for goal in ("zf", "zi"):
+                print(f"DEBUG -- A testar o goal: {GOALS[goal]}")
+            
+                if unc(tabuleiro, limite, goal):
+                    print(f"DEBUG -- Resolvido com o goal: {goal}")
+                    solucao = True
+                    break
             
             if not solucao:
                 print(f"O || DFS || não consiguiu encontrar uma solução para nenhuma das opções disponível.")
@@ -211,11 +231,10 @@ def menu_nao_supervisionadas(tabuleiro):
 def menu_supervisionadas(tabuleiro):
     while True:
         print("\n╔═══════════════════════════════════════╗")
-        print("║      PROCURAS SUPERVISIONADAS         ║")
+        print("║      PROCURAS INFORMADAS              ║")
         print("╠═══════════════════════════════════════╣")
         print("║  [1] GBFS                             ║")
         print("║  [2] A*                               ║")
-        print("║  [3] UCS                              ║")
         print("║  [0] Regressar                        ║")
         print("╚═══════════════════════════════════════╝")
 
@@ -250,19 +269,7 @@ def menu_supervisionadas(tabuleiro):
             
             if not solucao:
                 print(f"O || A* || não consiguiu encontrar uma solução para nenhuma das opções disponível.")
-
-        elif esc == "3":
-            limite = int(input("Limite (-1 = ilimitado): "))
-            solucao = False
-            
-            for goal in ("zf", "zi"):
-                print(f"DEBUG -- A testar o goal: {GOALS[goal]}")
-            
-                if unc(tabuleiro, limite, goal):
-                    print(f"DEBUG -- Resolvido com o goal: {goal}")
-                    solucao = True
-                    break
-            
+    
             if not solucao:
                 print(f"O || UCS || não consiguiu encontrar uma solução para nenhuma das opções disponível.")
             

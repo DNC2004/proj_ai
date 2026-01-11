@@ -45,48 +45,6 @@ def gbfs(matriz_tabuleiro, limite, tipo_goal):
     
     return False
 
-# Uniforme Cost Search (Custo sem heurística)
-def unc(matriz_tabuleiro,limite, tipo_goal):
-    fila = []
-    tabuleiro = matriz_tuplo(matriz_tabuleiro)
-    goal = GOALS[tipo_goal]
-    
-    heapq.heappush(fila, (0, tabuleiro))
-    
-    visitados = {}
-    contador = 0
-    
-    while fila:
-        custo, node = heapq.heappop(fila)
-        contador += 1
-        #print(f"DEBUG -- Custo atual: {custo} | Nó atual: {node}")
-        
-        if contador % 100000 == 0:
-            print(f"Tentativa: {contador}")
-            
-        if contador == limite:
-            print(f"O || UCS || não resolveu o tabuleiro em {contador} tentativas.")
-            return False
-        
-        elif contador == MAX_LIMIT:
-            print(f"O || UCS || não resolveu o tabuleiro em {contador} tentativas.")
-            return False
-        
-        
-        if node in visitados and visitados[node] <= custo:
-            continue
-        
-        visitados[node] = custo
-        
-        if node == goal:
-            print(f"O || UCS || resolveu o tabuleiro em {contador} tentativas com um custo total de {custo}.")
-            return True
-        
-        for vizi in get_neighbors(node):
-            heapq.heappush(fila, (custo + 1, vizi))
-    
-    return False
-
 # A* (Custo com heurística)
 def astar(matriz_tabuleiro,limite, tipo_goal):
     fila = []
