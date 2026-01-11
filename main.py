@@ -199,6 +199,9 @@ def menu_nao_informadas(tabuleiro):
                     print(f"DEBUG -- Resolvido com o goal: {goal}")
                     solucao = True
                     break
+            
+            if not solucao:
+                print(f"O || DFS || não consiguiu encontrar uma solução para nenhuma das opções disponível.")
                 
         elif op == "3":
             limite = int(input("Limite (-1 = ilimitado): "))

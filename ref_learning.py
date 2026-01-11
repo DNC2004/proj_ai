@@ -1,4 +1,3 @@
-# Não funciona com os goals
 import random
 from comuns import matriz_tuplo, dist_manhatan, GOALS, MAX_LIMIT
 

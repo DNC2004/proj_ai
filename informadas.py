@@ -56,8 +56,6 @@ def astar(matriz_tabuleiro,limite, tipo_goal):
     visitados = {}
     contador = 0
     
-    custos_menores = {tabuleiro: 0}
-    
     while fila :
         _,custo_atual, node = heapq.heappop(fila)
         contador += 1
