@@ -7,7 +7,7 @@ from comuns import GOALS
 
 # Impossível
 # matriz_jogo_quinze = [[2,5,6,8],[1,4,9,10],[12,14,15,3], [13,7,11,0]]
-# matriz_jogo_quinze = [[14,13,15,7],[11,12,9,5],[6,0,2,1],[4,8,10,3]]
+matriz_jogo_quinze = [[14,13,15,7],[11,12,9,5],[6,0,2,1],[4,8,10,3]]
 
 # Dificeis
 #matriz_jogo_quinze = [[5, 0, 2, 11],[14, 1, 3, 6],[9, 8, 13, 7],[10, 15, 4, 12]]
@@ -20,7 +20,7 @@ from comuns import GOALS
 # matriz_jogo_quinze = [[1,2,3,4],[5,6,7,8],[9,10,11,12], [13,14,0,15]]
 
 # Matrizes Professor
-# matriz_jogo_quinze = [[2,8,12,15],[5,7,4,13],[1,3,11,10],[14,9,6,0]]
+#matriz_jogo_quinze = [[2,8,12,15],[5,7,4,13],[1,3,11,10],[14,9,6,0]]
 
 
 # Modelo vazio criado em cada run
@@ -132,9 +132,9 @@ def menu_algoritmos(tabuleiro):
         op = input("Escolha: ").strip()
 
         if op == "1":
-            menu_nao_supervisionadas(tabuleiro)
+            menu_nao_informadas(tabuleiro)
         elif op == "2":
-            menu_supervisionadas(tabuleiro)
+            menu_informadas(tabuleiro)
         elif op == "3":
             limite = int(input("Limite (-1 = ilimitado): "))
             solucao = False
@@ -159,7 +159,7 @@ def menu_algoritmos(tabuleiro):
 
 
 
-def menu_nao_supervisionadas(tabuleiro):
+def menu_nao_informadas(tabuleiro):
     while True:
         print("\n╔═══════════════════════════════════════╗")
         print("║     PROCURAS NÃO INFORMADAS           ║")
@@ -213,7 +213,7 @@ def menu_nao_supervisionadas(tabuleiro):
                     break
             
             if not solucao:
-                print(f"O || DFS || não consiguiu encontrar uma solução para nenhuma das opções disponível.")
+                print(f"O || UCS || não consiguiu encontrar uma solução para nenhuma das opções disponível.")
 
         elif op == "0":
             break
@@ -221,7 +221,7 @@ def menu_nao_supervisionadas(tabuleiro):
             print("Opção inválida.")
 
 
-def menu_supervisionadas(tabuleiro):
+def menu_informadas(tabuleiro):
     while True:
         print("\n╔═══════════════════════════════════════╗")
         print("║      PROCURAS INFORMADAS              ║")
@@ -264,7 +264,7 @@ def menu_supervisionadas(tabuleiro):
                 print(f"O || A* || não consiguiu encontrar uma solução para nenhuma das opções disponível.")
     
             if not solucao:
-                print(f"O || UCS || não consiguiu encontrar uma solução para nenhuma das opções disponível.")
+                print(f"O || A* || não consiguiu encontrar uma solução para nenhuma das opções disponível.")
             
         elif esc == "0":
             break
