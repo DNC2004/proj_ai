@@ -19,12 +19,14 @@ Este repositório contém a implementação de diversos algoritmos fundamentais 
 | Categoria | Algoritmo / Modelo | Status |
 | :--- | :--- | :---: |
 | **Learning** | Reinforcement Learning | ✅ |
-| **Probabilidade** | Markov Chains | ⏳ *Pendente* |
-| **Probabilidade** | Redes Bayesianas | ⏳ *Pendente* |
-| **Decisão** | Markov Decision Process (MDP) | ⏳ *Pendente* |
+| **Probabilidade** | Markov Chains | ❌ Não Implementado |
+| **Probabilidade** | Redes Bayesianas | ❌ Não Implementado |
+| **Decisão** | Markov Decision Process (MDP) | ❌ Não Implementado |
 
 ---
 
 ## 🛠️ Tecnologias
 * **Linguagem:** Python 3.10+
 ---
+
+Atualizado: 11/01/2026
