@@ -11,6 +11,7 @@ Este repositório contém a implementação de diversos algoritmos fundamentais 
 | :--- | :--- | :---: |
 | **Não Informada** | DFS (Depth-First Search) | ✅ |
 | **Não Informada** | BFS (Breadth-First Search) | ✅ |
+| **Não Informada** | UCS (Uniform Cost Search) | ✅ |
 | **Informada** | GBFS (Greedy Best-First Search) | ✅ |
 | **Informada** | A* (A-Star Search) | ✅ |
 
